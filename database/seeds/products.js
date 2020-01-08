@@ -4,7 +4,7 @@ exports.seed = function(knex) {
   createFakeProducts = (i) => {
     return {
       title: faker.commerce.productName(),
-      price: faker.commerce.price(),
+      price: faker.finance.amount(),
       description: faker.commerce.product(),
       image_url: faker.image.fashion()
     }
