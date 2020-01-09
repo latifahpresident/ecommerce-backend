@@ -10,5 +10,6 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema(dropTableIfExists('products'))
+  return knex.schema.dropTableIfExists('products')
 };
+
