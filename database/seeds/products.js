@@ -1,14 +1,6 @@
 const faker = require('faker');
 
 exports.seed = function(knex) {
-  // return knex('products')
-  // .del() // delete existing tags
-  // .then(function() {
-  //   return knex('products').insert([
-  //     { id: 1, title: 'apple', price: '2.00', description: 'red fruit', image_url: 'image here' }, // 1
-      
-  //   ]);
-  // });
   createFakeProducts = (i) => {
     return {
       title: faker.commerce.productName(),
