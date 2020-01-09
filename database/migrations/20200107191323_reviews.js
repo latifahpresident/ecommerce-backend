@@ -6,7 +6,7 @@ exports.up = function(knex) {
       reviews.string('content').notNullable()
       reviews.timestamp('created_at').defaultTo(knex.fn.now())
       reviews.string('user_id').unsigned().notNullable().references('firebase_id').inTable('users')
-      reviews.string('product_id').unsigned().notNullable().references('id').inTable('products')
+      reviews.integer('product_id').unsigned().notNullable().references('id').inTable('products')
   })
 };
 

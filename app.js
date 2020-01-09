@@ -9,6 +9,8 @@ const app = express();
 
 //routes
 const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+
 //Middleware
 const accessLogStream = fs.createWriteStream( //writting morgan logs to file
     path.join(__dirname, 'access.log'),
@@ -21,7 +23,9 @@ app.use(helmet());
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(compression());
 
-app.use('/admin', adminRoutes)
+app.use('/admin', adminRoutes);
+app.use('/shop', shopRoutes);
+
 app.get('/', (req, res) => {
     res.send('sanity check')
 });
