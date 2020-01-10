@@ -5,4 +5,6 @@ const router = express.Router();
 router.get('/users', adminRoutes.getUsers);
 router.get('/users/:id', adminRoutes.getUserById);
 router.post('/register', adminRoutes.addUser);
-module.exports = router
+router.put('/user/:id', adminRoutes.editUser);
+
+module.exports = router 

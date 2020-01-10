@@ -14,7 +14,7 @@ addUser = (user) => {
 };
 
 editUser = (user, id) => {
-    return db('users').where({id}).update(user) //TODO: TAKE OUT CURLY BRACES TO SEE WHAT HAPPENS
+    return db('users').where({firebase_id: id}).update(user) 
 };
 
 deleteUser = (id) => {

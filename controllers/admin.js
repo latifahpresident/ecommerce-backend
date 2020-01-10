@@ -49,7 +49,7 @@ exports.editUser = async (req, res) => {
         } else {
             const user = req.body;
             const updatedUser = await Users.editUser(user, id);
-            res.status(200).json(updatedUser);
+            res.status(200).json(`Information has been updated`);
         }
     } catch(err) {
         res.status(500).json(`Cannot update the user`);
