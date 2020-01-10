@@ -10,14 +10,15 @@ exports.getUsers = async (req, res) => {
     }
 };
 
+//TODO: WILL NEED TO ADD ERROR HANDLING. AFTER DELETING AND GOING TO USER BY ID STILL GETTING A 200 STATUS
 exports.getUserById = async (req, res) => {
     try {
         const {id} = req.params
-        if (id) {
+        if (!id) {
+            res.status(400).json(`That user could not be found`);
+        } else {
             const userData = await Users.userById(id);
             res.status(200).json(userData);
-        } else {
-            res.status(400).json(`That user could not be found`);
         }
     } catch(err) {
         res.status(500).json(`A user by that ID was not found`);
@@ -25,18 +26,33 @@ exports.getUserById = async (req, res) => {
     }
 };
 
-//TODO: ADD BETTER ERROR HANDLING, WILL NEED TO CHECK IF USER EXISTS FIRST
-exports.addUser = async (req, res) => {
+exports.editUser = async (req, res) => {
     try {
-        const user = req.body;
-        if (user) {
-            const newUser = await Users.addUser(user);
-            res.status(200).json(newUser);
+        const {id} = req.params;
+        if (!id) {
+            res.status(404).json(`That user was not found`);
         } else {
-            res.status(400).json(`Please enter all input fields`);
+            const user = req.body;
+            const updatedUser = await Users.editUser(user, id);
+            res.status(200).json(`Information has been updated`);
         }
     } catch(err) {
-        res.status(500).json(`There was an error adding you information`);
-        console.log(`error from addUser: ${err}`)
+        res.status(500).json(`Cannot update the user`);
+        console.log(`error from edit user: ${err}`)
+    }
+};
+
+exports.deleteUser = async (req, res) => {
+    try {
+        const {id} = req.params;
+        if (!id) {
+            res.status(404).json(`User not deleted`);
+        } else {
+            const deletedUser = await Users.deleteUser(id)
+            res.status(400).json(`User has been deleted`);
+        }
+    } catch(err) {
+        res.status(500).json(`error deleting user`);
+        console.log(`error from delete user: ${err}`)
     }
 };

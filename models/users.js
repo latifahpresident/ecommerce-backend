@@ -4,7 +4,7 @@ users = () => {
     return db('users').select('firebase_id', 'email', 'first_name', 'last_name', 'profile_url')
 };
 
-//For future reference, I'm using id in place of firebase_id as the args name so users won't know what technology I'm using for authentication
+//For future reference, I'm using id in place of firebase_id as the args name so users won't to know what I'm using for authentication
 userById = (id) => {
     return db('users').where({'firebase_id': id}).first()
 };
@@ -14,11 +14,11 @@ addUser = (user) => {
 };
 
 editUser = (user, id) => {
-    return db('users').where({id}).update(user) //TODO: TAKE OUT CURLY BRACES TO SEE WHAT HAPPENS
+    return db('users').where({firebase_id: id}).update(user) 
 };
 
 deleteUser = (id) => {
-    return db('users').where({id}).delete()
+    return db('users').where({'firebase_id': id}).delete()
 };
 
 module.exports = {
