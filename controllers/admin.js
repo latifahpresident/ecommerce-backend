@@ -25,17 +25,18 @@ exports.getUserById = async (req, res) => {
     }
 };
 
+//TODO: ADD BETTER ERROR HANDLING, WILL NEED TO CHECK IF USER EXISTS FIRST
 exports.addUser = async (req, res) => {
     try {
         const user = req.body;
         if (user) {
-            const newUser = await Users.addUser(newUser) ;
+            const newUser = await Users.addUser(user);
             res.status(200).json(newUser);
         } else {
             res.status(400).json(`Please enter all input fields`);
         }
     } catch(err) {
         res.status(500).json(`There was an error adding you information`);
-        console.log(`error from: ${err}`)
+        console.log(`error from addUser: ${err}`)
     }
-}
+};
