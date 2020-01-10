@@ -40,3 +40,19 @@ exports.addUser = async (req, res) => {
         console.log(`error from addUser: ${err}`)
     }
 };
+
+exports.editUser = async (req, res) => {
+    try {
+        const {id} = req.params;
+        if (!id) {
+            res.status(404).json(`That user was not found`);
+        } else {
+            const user = req.body;
+            const updatedUser = await Users.editUser(user, id);
+            res.status(200).json(updatedUser);
+        }
+    } catch(err) {
+        res.status(500).json(`Cannot update the user`);
+        console.log(`error from edit user: ${err}`)
+    }
+};
