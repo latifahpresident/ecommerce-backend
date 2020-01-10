@@ -31,11 +31,11 @@ exports.getUserById = async (req, res) => {
 exports.addUser = async (req, res) => {
     try {
         const user = req.body;
-        if (user) {
-            const newUser = await Users.addUser(user);
-            res.status(200).json(newUser);
-        } else {
+        if (!user) {
             res.status(400).json(`Please enter all input fields`);
+        } else {
+            const newUser = await Users.addUser(user);
+            res.status(201).json(newUser);
         }
     } catch(err) {
         res.status(500).json(`There was an error adding you information`);
