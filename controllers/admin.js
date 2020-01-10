@@ -25,22 +25,6 @@ exports.getUserById = async (req, res) => {
     }
 };
 
-//TODO: ADD BETTER ERROR HANDLING, WILL NEED TO CHECK IF USER EXISTS FIRST
-exports.addUser = async (req, res) => {
-    try {
-        const user = req.body;
-        if (user) {
-            const newUser = await Users.addUser(user);
-            res.status(200).json(newUser);
-        } else {
-            res.status(400).json(`Please enter all input fields`);
-        }
-    } catch(err) {
-        res.status(500).json(`There was an error adding you information`);
-        console.log(`error from addUser: ${err}`)
-    }
-};
-
 exports.editUser = async (req, res) => {
     try {
         const {id} = req.params;
@@ -54,5 +38,20 @@ exports.editUser = async (req, res) => {
     } catch(err) {
         res.status(500).json(`Cannot update the user`);
         console.log(`error from edit user: ${err}`)
+    }
+};
+
+exports.deleteUser = async (req, res) => {
+    try {
+        const {id} = req.params;
+        if (!id) {
+            res.status(404).json(`User not deleted`);
+        } else {
+            const deletedUser = await Users.deleteUser(id)
+            res.status(400).json(`User has been deleted`);
+        }
+    } catch(err) {
+        res.status(500).json(`error deleting user`);
+        console.log(`error from delete user: ${err}`)
     }
 };
