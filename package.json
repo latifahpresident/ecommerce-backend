@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "cross-env NODE_ENV=testing jest --watch --verbose",
     "server": "nodemon index.js"
   },
   "repository": {
@@ -32,8 +32,13 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "cross-env": "^6.0.3",
+    "fsevents": "1.2.9",
     "jest": "^24.9.0",
     "mocha": "^7.0.0",
     "nodemon": "^2.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
