@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing jest --watch --verbose",
+    "test": "jest",
     "server": "nodemon index.js"
   },
   "repository": {
@@ -37,8 +37,5 @@
     "jest": "^24.9.0",
     "mocha": "^7.0.0",
     "nodemon": "^2.0.2"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }
