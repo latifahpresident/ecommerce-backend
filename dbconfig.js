@@ -5,4 +5,3 @@ const environment = process.env.NODE_ENV || 'testing';
 const db = knex(knexConfig[environment]);
 
 module.exports = db
-
