@@ -14,11 +14,11 @@ exports.getUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
     try {
         const {id} = req.params
-        if (!id) {
-            res.status(400).json(`That user could not be found`);
-        } else {
+        if (id) {
             const userData = await Users.userById(id);
             res.status(200).json(userData);
+        } else {
+            res.status(400).json(`That user could not be found`);
         }
     } catch(err) {
         res.status(500).json(`A user by that ID was not found`);
@@ -34,7 +34,7 @@ exports.editUser = async (req, res) => {
         } else {
             const user = req.body;
             const updatedUser = await Users.editUser(user, id);
-            res.status(200).json(`Information has been updated`);
+            res.status(201).json(`Information has been updated`);
         }
     } catch(err) {
         res.status(500).json(`Cannot update the user`);
