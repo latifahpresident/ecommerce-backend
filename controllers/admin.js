@@ -1,12 +1,13 @@
 const Users = require('../models/users');
 
+//404 Not Found
+//400 Bad request 
 exports.getUsers = async (req, res) => {
     try {
         const UserData = await Users.users();
         res.status(200).json(UserData);
     } catch (err) {
         res.status(500).json(`No users found`);
-        console.log(`error from getUsers: ${err}`)
     }
 };
 
@@ -14,32 +15,29 @@ exports.getUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
     try {
         const {id} = req.params
-        if (id) {
+        if (!id) {
+            res.status(400).json(`That user could not be found`);
+        } else {
             const userData = await Users.userById(id);
             res.status(200).json(userData);
-        } else {
-            res.status(400).json(`That user could not be found`);
         }
     } catch(err) {
         res.status(500).json(`A user by that ID was not found`);
-        console.log(`error from getUserById: ${err}`);
     }
 };
 
 exports.editUser = async (req, res) => {
     try {
+        const updatedUser = req.body;
         const {id} = req.params;
-        if (!id) {
-            res.status(404).json(`That user was not found`);
+        const user = await Users.editUser(updatedUser, id);
+        if (!user || !id) {
+            res.status(404).json(`User information was not updated`);
         } else {
-            const user = req.body;
-            const updatedUser = await Users.editUser(user, id);
-            res.status(201).json(`Information has been updated`);
+            res.status(201).json(user);
         }
-    } catch(err) {
-        res.status(500).json(`Cannot update the user`);
-        console.log(`error from edit user: ${err}`)
-    }
+      } catch (error) {
+        res.status(500).json({ message: `Error updating user: ${error}` });      }
 };
 
 exports.deleteUser = async (req, res) => {
@@ -49,10 +47,9 @@ exports.deleteUser = async (req, res) => {
             res.status(404).json(`User not deleted`);
         } else {
             const deletedUser = await Users.deleteUser(id)
-            res.status(400).json(`User has been deleted`);
+            res.status(200).json(`User has been deleted`);
         }
     } catch(err) {
         res.status(500).json(`error deleting user`);
-        console.log(`error from delete user: ${err}`)
     }
 };
