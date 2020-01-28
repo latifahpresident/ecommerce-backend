@@ -14,12 +14,13 @@ exports.getUsers = async (req, res) => {
 //TODO: WILL NEED TO ADD ERROR HANDLING. AFTER DELETING AND GOING TO USER BY ID STILL GETTING A 200 STATUS
 exports.getUserById = async (req, res) => {
     try {
-        const {id} = req.params
-        if (!id) {
+        const {firebase_id} = req.params
+        if (!firebase_id) {
             res.status(400).json(`That user could not be found`);
         } else {
-            const userData = await Users.userById(id);
-            res.status(200).json(userData);
+            const userData = await Users.userById(firebase_id);
+            console.log(userData, 'user data')
+            res.status(200).json(id);
         }
     } catch(err) {
         res.status(500).json(`A user by that ID was not found`);

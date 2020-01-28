@@ -3,7 +3,7 @@ const adminRoutes = require('../controllers/admin');
 const router = express.Router();
 
 router.get('/users', adminRoutes.getUsers);
-router.get('/users/:id', adminRoutes.getUserById);
+router.get('/user/:id', adminRoutes.getUserById);
 router.put('/user/:id', adminRoutes.editUser);
 router.delete('/user/:id', adminRoutes.deleteUser);
 
