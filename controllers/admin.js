@@ -62,3 +62,19 @@ exports.deleteUser = async (req, res) => {
         res.status(500).json(`error deleting user`);
     }
 };
+
+// //TODO: ADD BETTER ERROR HANDLING, WILL NEED TO CHECK IF USER EXISTS FIRST
+exports.addUser = async (req, res) => {
+    try {
+        const user = req.body;
+        if (!user) {
+            res.status(400).json(`Please enter all input fields`);
+        } else {
+            const newUser = await Users.addUser(user);
+            res.status(201).json(newUser);
+        }
+    } catch(err) {
+        res.status(500).json(`There was an error adding you information`);
+        console.log(`error from addUser: ${err}`)
+    }
+};
