@@ -61,7 +61,7 @@ describe(`Requests to /admin/ routes`, () => {
 
    
     describe(`Unsuccessful requests`, () => {
-        it(`should return 404 if id is missing when deleting a user`, async () => {
+        it(`DELETE should return 404 if id is missing when deleting a user`, async () => {
             const res = await request(server).delete('/admin/user/').expect(404);
             expect(res.status).toBe(404);
         });
