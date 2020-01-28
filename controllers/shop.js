@@ -12,6 +12,21 @@ exports.getProducts = async (req, res) => {
     }
 };
 
+exports.getProductById = async (req, res) => {
+    try {
+        const {id} = req.params
+        const productData = await Products.productById(id)
+        if(!productData) {
+            res.status(404).json(`That product cannot be found`)
+        } else {
+            res.status(200).json(productData);
+        }
+    } catch (err) {
+        res.status(500).json(`That product cannot be found`);
+        console.log(err, 'error from product by id')
+    }
+};
+
 exports.getUserById = async (req, res) => {
     try {
         const {id} = req.params
