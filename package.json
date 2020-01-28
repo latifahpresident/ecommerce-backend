@@ -33,7 +33,6 @@
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
-    "fsevents": "1.2.9",
     "jest": "^24.9.0",
     "nodemon": "^2.0.2"
   }
