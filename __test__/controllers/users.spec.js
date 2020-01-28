@@ -9,7 +9,7 @@ beforeAll(async done => {
     await db.migrate.rollback();
     await db.migrate.latest();
     await db.seed.run();
-    return done()
+    return done();
 });
 
 const updatedUser = {
@@ -29,19 +29,16 @@ describe(`Requests to /admin/ routes`, () => {
         });
     
         it('should return the user with name Naruto', async () => {
-            const res = await request(server).get('/admin/users/2435rwteray756ue57ghvders');
-            expect(res.body).toHaveProperty('id');
+            const res = await request(server).get('/admin/user/2435rwteray756ue57ghvders');
+            // expect(res.body).toHaveProperty('firebase_id');
             expect(res.body.first_name).toBe('Naruto');
             expect(res.status).toEqual(200);
         });
     });
 
     it(`PUT request to /admin/user/id is successful`, async () => {
-      
-        await request(server).put('/admin/user/2435rwteray756ue57ghvders').send(updatedUser).expect(201);
-        const res = await request(server).get('/admin/users/2435rwteray756ue57ghvders');
-        expect(res.status).toBe(200);
-        expect(res.body.email).toBe('naruto9_hokage7@theleaf.com');
+        const res = await request(server).put('/admin/user/2435rwteray756ue57ghvders').send(updatedUser).expect(201)
+        expect(res.body).toBe(1);
     });
 
     it(`PUT request with no body should return 500`, async () => {
@@ -58,12 +55,16 @@ describe(`Requests to /admin/ routes`, () => {
         const res = await request(server).delete('/admin/user/2435rwteray756ue566ttuyyy').expect(200);
         expect(res.body).toBe('User has been deleted');
     });
-
-   
-    describe(`Unsuccessful requests`, () => {
-        it(`DELETE should return 404 if id is missing when deleting a user`, async () => {
-            const res = await request(server).delete('/admin/user/').expect(404);
-            expect(res.status).toBe(404);
-        });
-    })
 });
+
+ 
+describe(`Unsuccessful requests`, () => {
+    it(`GET request to /admin/user/id`, async () => {
+        const res = await request(server).get('/admin/user/9000000');
+        expect(res.status).toBe(404);
+    });
+    it(`DELETE should return 404 if id is missing when deleting a user`, async () => {
+        const res = await request(server).delete('/admin/user/').expect(404);
+        expect(res.status).toBe(404);
+    });
+})
