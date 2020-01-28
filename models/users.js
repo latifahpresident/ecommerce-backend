@@ -4,9 +4,9 @@ users = () => {
     return db('users').select('firebase_id', 'email', 'first_name', 'last_name', 'profile_url')
 };
 
-userById = (firebase_id) => {
-    return db('users').where({ 'firebase_id': firebase_id }).first();
-  };
+// userById = (firebase_id) => {
+//     return db('users').where({ 'firebase_id': firebase_id }).first();
+//   };
 
 addUser = (user) => {
     return db('users').insert(user)
@@ -21,7 +21,11 @@ deleteUser = (id) => {
 };
 
 
-
+userById = (firebase_id) => {
+    return db("users")
+      .where({ 'firebase_id': firebase_id })
+      .first();
+  };
 module.exports = {
     users,
     userById,

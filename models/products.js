@@ -10,4 +10,5 @@ const productById = () => {
 
 module.exports = {
     products,
+    productById
 }
